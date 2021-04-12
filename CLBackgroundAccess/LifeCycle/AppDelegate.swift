@@ -40,12 +40,14 @@ extension AppDelegate {
 
 /// Convenience Methods to get AppDelegate instance and app's top ViewController
 extension AppDelegate {
+    /// Get AppDelegate instance
     static var current: AppDelegate {
         get {
             return UIApplication.shared.delegate as! AppDelegate
         }
     }
 
+    /// Get top view controller
     class func topViewController(_ base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
 
         if let nav = base as? UINavigationController {

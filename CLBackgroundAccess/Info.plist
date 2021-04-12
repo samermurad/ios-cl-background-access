@@ -72,9 +72,5 @@
 	<string>App Uses Location Services to allow background operations while performing long running tasks, this insures data integrity on our side, and offers a better user exprience</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>App Uses Location Services to allow background operations while performing long running tasks, this insures data integrity on our side, and offers a better user exprience</string>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>io.codiseus.bg.location.updates</string>
-	</array>
 </dict>
 </plist>

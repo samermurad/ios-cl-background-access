@@ -87,8 +87,8 @@
 		C4AC040D261F6332006C4088 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C4AC0403261F5A15006C4088 /* LocationManager.swift */,
 				C4AC04212621E79A006C4088 /* Bus.swift */,
+				C4AC0403261F5A15006C4088 /* LocationManager.swift */,
 				C4AC044C2623779F006C4088 /* LongProcessSimulator.swift */,
 			);
 			path = Utils;
@@ -106,8 +106,8 @@
 		C4AC040F261F6355006C4088 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C4E02BBA2619D0E500D311F7 /* ViewController.swift */,
 				C4AC042626220391006C4088 /* BusableController.swift */,
+				C4E02BBA2619D0E500D311F7 /* ViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -136,12 +136,12 @@
 			isa = PBXGroup;
 			children = (
 				C4AC040E261F6341006C4088 /* LifeCycle */,
-				C4AC040F261F6355006C4088 /* ViewControllers */,
 				C4AC040D261F6332006C4088 /* Utils */,
+				C4AC040F261F6355006C4088 /* ViewControllers */,
 				C4E02BBC2619D0E500D311F7 /* Main.storyboard */,
+				C4E02BC42619D0E600D311F7 /* Info.plist */,
 				C4E02BBF2619D0E600D311F7 /* Assets.xcassets */,
 				C4E02BC12619D0E600D311F7 /* LaunchScreen.storyboard */,
-				C4E02BC42619D0E600D311F7 /* Info.plist */,
 			);
 			path = CLBackgroundAccess;
 			sourceTree = "<group>";
