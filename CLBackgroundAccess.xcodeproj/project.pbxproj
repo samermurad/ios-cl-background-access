@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4AC0404261F5A15006C4088 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0403261F5A15006C4088 /* LocationManager.swift */; };
+		C4AC04222621E79A006C4088 /* Bus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC04212621E79A006C4088 /* Bus.swift */; };
+		C4AC042726220391006C4088 /* BusableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC042626220391006C4088 /* BusableController.swift */; };
+		C4AC044D2623779F006C4088 /* LongProcessSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC044C2623779F006C4088 /* LongProcessSimulator.swift */; };
 		C4E02BB72619D0E500D311F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E02BB62619D0E500D311F7 /* AppDelegate.swift */; };
 		C4E02BB92619D0E500D311F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E02BB82619D0E500D311F7 /* SceneDelegate.swift */; };
 		C4E02BBB2619D0E500D311F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E02BBA2619D0E500D311F7 /* ViewController.swift */; };
@@ -35,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C4AC0403261F5A15006C4088 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C4AC04212621E79A006C4088 /* Bus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bus.swift; sourceTree = "<group>"; };
+		C4AC042626220391006C4088 /* BusableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusableController.swift; sourceTree = "<group>"; };
+		C4AC044C2623779F006C4088 /* LongProcessSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongProcessSimulator.swift; sourceTree = "<group>"; };
 		C4E02BB32619D0E500D311F7 /* CLBackgroundAccess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CLBackgroundAccess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4E02BB62619D0E500D311F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4E02BB82619D0E500D311F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +84,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4AC040D261F6332006C4088 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C4AC0403261F5A15006C4088 /* LocationManager.swift */,
+				C4AC04212621E79A006C4088 /* Bus.swift */,
+				C4AC044C2623779F006C4088 /* LongProcessSimulator.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C4AC040E261F6341006C4088 /* LifeCycle */ = {
+			isa = PBXGroup;
+			children = (
+				C4E02BB62619D0E500D311F7 /* AppDelegate.swift */,
+				C4E02BB82619D0E500D311F7 /* SceneDelegate.swift */,
+			);
+			path = LifeCycle;
+			sourceTree = "<group>";
+		};
+		C4AC040F261F6355006C4088 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C4E02BBA2619D0E500D311F7 /* ViewController.swift */,
+				C4AC042626220391006C4088 /* BusableController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		C4E02BAA2619D0E500D311F7 = {
 			isa = PBXGroup;
 			children = (
@@ -99,9 +135,9 @@
 		C4E02BB52619D0E500D311F7 /* CLBackgroundAccess */ = {
 			isa = PBXGroup;
 			children = (
-				C4E02BB62619D0E500D311F7 /* AppDelegate.swift */,
-				C4E02BB82619D0E500D311F7 /* SceneDelegate.swift */,
-				C4E02BBA2619D0E500D311F7 /* ViewController.swift */,
+				C4AC040F261F6355006C4088 /* ViewControllers */,
+				C4AC040E261F6341006C4088 /* LifeCycle */,
+				C4AC040D261F6332006C4088 /* Utils */,
 				C4E02BBC2619D0E500D311F7 /* Main.storyboard */,
 				C4E02BBF2619D0E600D311F7 /* Assets.xcassets */,
 				C4E02BC12619D0E600D311F7 /* LaunchScreen.storyboard */,
@@ -259,7 +295,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4E02BBB2619D0E500D311F7 /* ViewController.swift in Sources */,
+				C4AC0404261F5A15006C4088 /* LocationManager.swift in Sources */,
+				C4AC042726220391006C4088 /* BusableController.swift in Sources */,
 				C4E02BB72619D0E500D311F7 /* AppDelegate.swift in Sources */,
+				C4AC04222621E79A006C4088 /* Bus.swift in Sources */,
+				C4AC044D2623779F006C4088 /* LongProcessSimulator.swift in Sources */,
 				C4E02BB92619D0E500D311F7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
