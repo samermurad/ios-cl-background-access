@@ -115,7 +115,7 @@ extension LocationManager: CLLocationManagerDelegate {
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        Bus.shared.post(event: .LocationUpdate, object: nil, userInfo: ["locations": locations, "state": self.state])
+        Bus.shared.post(event: .LocationUpdate, userInfo: ["locations": locations, "state": self.state])
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

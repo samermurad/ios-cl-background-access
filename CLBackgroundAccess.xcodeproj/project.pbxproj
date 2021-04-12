@@ -88,8 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				C4AC04212621E79A006C4088 /* Bus.swift */,
-				C4AC0403261F5A15006C4088 /* LocationManager.swift */,
 				C4AC044C2623779F006C4088 /* LongProcessSimulator.swift */,
+				C4AC0403261F5A15006C4088 /* LocationManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
