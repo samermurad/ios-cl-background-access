@@ -135,8 +135,8 @@
 		C4E02BB52619D0E500D311F7 /* CLBackgroundAccess */ = {
 			isa = PBXGroup;
 			children = (
-				C4AC040F261F6355006C4088 /* ViewControllers */,
 				C4AC040E261F6341006C4088 /* LifeCycle */,
+				C4AC040F261F6355006C4088 /* ViewControllers */,
 				C4AC040D261F6332006C4088 /* Utils */,
 				C4E02BBC2619D0E500D311F7 /* Main.storyboard */,
 				C4E02BBF2619D0E600D311F7 /* Assets.xcassets */,
