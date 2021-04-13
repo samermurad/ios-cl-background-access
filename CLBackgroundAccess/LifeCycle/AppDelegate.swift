@@ -25,16 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 /// Convenience AppWide Simple Alert
 extension AppDelegate {
     func alert(_ title: String, _ msg: String? = nil) {
-        DispatchQueue.main.async {
-            let cnt = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-            cnt.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [weak cnt] act in
-                cnt?.dismiss(animated: true, completion: nil)
-            }))
-            
-            guard let vc = AppDelegate.topViewController() else { return }
+        let cnt = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        cnt.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [weak cnt] act in
+            cnt?.dismiss(animated: true, completion: nil)
+        }))
+        
+        guard let vc = AppDelegate.topViewController() else { return }
 
-            vc.present(cnt, animated: true, completion: nil)
-        }
+        vc.present(cnt, animated: true, completion: nil)
     }
 }
 

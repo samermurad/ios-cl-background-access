@@ -18,20 +18,38 @@ App entered background while processing and was suspended.
 Consider Giving the app access to your location to allow the processing to continue in the background.
 """
 
+let DID_APP_ENTER_BG_WHILE_PROCESSING = "DID_APP_ENTER_BG_WHILE_PROCESSING"
+
 // MARK: - Declerations & IBs
 class ViewController: BusableController {
     
     // MARK: long processing
+    // keeps track of the current running simulation
     var longTaskdId: LongProcessSimulator.JobId?
-    var didEnterBgWhileProcessing: Bool = false
+    
+    var didEnterBgWhileProcessing: Bool = false {
+        didSet {
+            // save the didEnterBgWhileProcessing value on each change
+            if self.didEnterBgWhileProcessing != oldValue {
+                DispatchQueue.global().async { [unowned self] in
+                    UserDefaults.standard.setValue(
+                        self.didEnterBgWhileProcessing,
+                        forKey: DID_APP_ENTER_BG_WHILE_PROCESSING
+                    )
+                    UserDefaults.standard.synchronize()
+                }
+            }
+        }
+    }
     // MARK: Subs
+    /// are setup in the ViewController.setupBus method
     var subs: BusableController.Subs = [:]
     override var SubscriptionEvents: BusableController.Subs {
         get { return self.subs }
     }
     
     // MARK: IBOutlets
-    @IBOutlet weak var locLabel: UILabel!
+    @IBOutlet weak var locationAuthStatusLabel: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progess: UIProgressView!
     @IBOutlet weak var locationOffHintLabel: UILabel!
@@ -48,18 +66,15 @@ class ViewController: BusableController {
     @IBAction func cancelLongProcess(_ sender: Any) {
         self.stopSim()
     }
-}
-
-// MARK: - Life Cycle
-extension ViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupBus()
-        self.updateLocationLabel(withState: LocationManager.shared.state)
         self.resetLongProcessViews()
         self.updateHintLabel(setHidden: true, setText: INITIAL_HINT_TEXT)
     }
 }
+
 
 // MARK: - Bus
 extension ViewController {
@@ -67,7 +82,7 @@ extension ViewController {
         self.subs = [
             .AppEnteredBackground: self.enteredBackground(_:),
             .AppEnteredForeground: self.enteredForeground(_:),
-            .LocationManagerStateChange: self.locationManagerStateChange(notification:),
+            .LocationAuthUpdate: self.locationAccessChanged(notification:),
         ]
     }
     
@@ -81,6 +96,8 @@ extension ViewController {
     private func enteredForeground(_: Notification) {
         print("VC: App entered foreground")
         let gps = LocationManager.shared
+        let cache = UserDefaults.standard
+        self.didEnterBgWhileProcessing = cache.bool(forKey: DID_APP_ENTER_BG_WHILE_PROCESSING)
         if !gps.isHasAccess() && self.didEnterBgWhileProcessing {
             self.updateHintLabel(setHidden: false, setText: WARNING_HINT_TEXT)
         } else if gps.state == .Monitoring {
@@ -88,8 +105,9 @@ extension ViewController {
         }
     }
     
-    private func locationManagerStateChange(notification: Notification) {
-        if let state = notification.userInfo?["state"] as? LocationManager.State {
+    private func locationAccessChanged(notification: Notification) {
+        let info = notification.userInfo
+        if let state = info?["status"] as? LocationManager.LocationAuthStatus {
             DispatchQueue.main.async { [unowned self] in
                 self.updateLocationLabel(withState: state)
             }
@@ -106,8 +124,13 @@ extension ViewController {
             return
         }
         let lpSim = LongProcessSimulator.shared
+        
+        // Kickstart the long process simulation
+        // for 2000 ticks, where each takes a random amount of time
+        // between 0.3, 0.7 or 1 second.
+        // block method gets call on each tick
         self.longTaskdId = lpSim.tick(
-            times: 200,
+            times: 2000,
             withRandomIntervals: [0.3, 0.7, 1],
             block: self.simluationTick(progress:total:isDone:)
         )
@@ -116,7 +139,9 @@ extension ViewController {
     
     func stopSim() {
         guard self.isSimulating() else {
-            DispatchQueue.main.async { AppDelegate.current.alert("Error", "No Task Running") }
+            DispatchQueue.main.async {
+                AppDelegate.current.alert("Error", "No Task Running")
+            }
             return
         }
         // cancel
@@ -130,7 +155,7 @@ extension ViewController {
     
     func simluationTick(progress: Int64, total: Int64, isDone: Bool) -> Bool? {
         let p = Float(Float(progress) / Float(total))
-        let pS = "\(Int(p * 100.0))%"
+        let pS = String(format: "%.2f%%", p * 100.0)
         print("Ticks: \(progress)/\(total) \(pS)")
         DispatchQueue.main.sync {
             self.updateProgressViews(progress: p)
@@ -143,18 +168,18 @@ extension ViewController {
             }
             LocationManager.shared.stopMonitoring()
         }
-        return self.longTaskdId == nil // returning true cancels run
+        return !self.isSimulating() // returning true cancels run
     }
 }
 // MARK: - UI Updates
 extension ViewController {
 
-    func updateLocationLabel(withState state: LocationManager.State) {
-        self.locLabel.text = "Location Updates are \(state)"
+    func updateLocationLabel(withState state: LocationManager.LocationAuthStatus) {
+        self.locationAuthStatusLabel.text = "Location Access: \(state)"
     }
 
     func updateProgressViews(progress: Float) {
-        let pS = "\(Int(progress * 100.0))%"
+        let pS = String(format: "%.2f%%", progress * 100.0)
         self.progess.progress = progress
         self.progressLabel.text = pS
     }
@@ -174,7 +199,11 @@ extension ViewController {
         }
         
         guard text != nil || isHidden != nil  else {
-            print("WARN: updateHintLabel was called without paramters, this is a noop, use the setHidden or setText to dismiss message")
+            print("""
+                WARN: updateHintLabel was called without paramters.
+                This is a noop, use the setHidden or setText to dismiss message
+                """
+            )
             return
         }
     }
